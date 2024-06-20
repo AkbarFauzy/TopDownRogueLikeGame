@@ -6,7 +6,8 @@ namespace Roguelike.Module.Player
     {
         public int Health { get; }
         public float Speed { get; }
-        public int Score { get; }
+        public int Experience { get; } 
+        public int Level { get; }
 
     }
 }

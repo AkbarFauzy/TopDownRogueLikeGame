@@ -5,9 +5,9 @@ using Agate.MVC.Base;
 using Roguelike.Message;
 
 namespace Roguelike.Module.Bullet{
-    public class BulletConnector : BaseConnector
+    public class BulletPoolConnector : BaseConnector
     {
-        private BulletController _bullet;
+        private BulletPoolController _bullet;
 
         protected override void Connect()
         {

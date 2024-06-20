@@ -10,7 +10,7 @@ namespace Roguelike.Module.Enemy
     {
         private EnemyController _enemy;
 
-        protected override void Connect() { 
+        protected override void Connect() {
             Subscribe<GameOverMessage>(_enemy.OnGameOver);
         }
 

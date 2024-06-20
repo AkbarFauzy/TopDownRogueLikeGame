@@ -4,42 +4,55 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Agate.MVC.Base;
+using Roguelike.Module.Enemy;
 
-
-namespace Roguelike.Module.Bullet
+namespace Roguelike.Module.Bullet 
 {
     public class BulletView : ObjectView<IBulletModel>
     {
-        public Camera MainCamera;
-        public GameObject BulletPrefab;
-        private UnityAction<Vector3> _onMovePosition;
+        private UnityAction _onMoveBullet;
         private UnityAction _onDespawnBullet;
+        private UnityAction<EnemyView> _onEnemyHit;
 
-        public void SetCallbacks(UnityAction<Vector3> onMovePosition, UnityAction onDespawnBullet)
+        public void SetCallbacks(UnityAction onMoveBullet , UnityAction onDespawnBullet, UnityAction<EnemyView> onEnemyHit)
         {
-            _onMovePosition = onMovePosition;
+            _onMoveBullet = onMoveBullet;
             _onDespawnBullet = onDespawnBullet;
+            _onEnemyHit = onEnemyHit;
         }
-
 
         protected override void InitRenderModel(IBulletModel model)
         {
-            transform.position = _model.Position;
+          
         }
 
         protected override void UpdateRenderModel(IBulletModel model)
         {
-            transform.position = _model.Position;
+   
+        }
+
+        private void OnCollisionEnter2D(Collision2D collisionInfo)
+        {
+            bool isCollideWithEnemy = collisionInfo.gameObject.CompareTag("Enemy");
+            if (isCollideWithEnemy)
+            {
+                _onEnemyHit?.Invoke(collisionInfo.gameObject.GetComponent<EnemyView>());
+            }
+        }
+
+        private void Start()
+        {
+            _onMoveBullet?.Invoke();
         }
 
         private void Update()
         {
-            Vector2 mousePosition = Mouse.current.position.ReadValue();
-
-            Vector3 worldMousePosition = MainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, MainCamera.nearClipPlane));
-
-            _onMovePosition?.Invoke(MainCamera.ScreenToWorldPoint(worldMousePosition));
             _onDespawnBullet?.Invoke();
+        }
+
+        private void OnEnable()
+        {
+            _onMoveBullet?.Invoke();
         }
 
     }

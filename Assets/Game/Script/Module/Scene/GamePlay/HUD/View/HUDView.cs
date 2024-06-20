@@ -8,29 +8,48 @@ namespace Roguelike.Module.HUD {
     public class HUDView : ObjectView<IHUDModel>
     {
         [SerializeField]
-        private Image _expBar; 
+        public Image _expBar; 
         [SerializeField]
         private TextMeshProUGUI _lvl;
         [SerializeField]
         private TextMeshProUGUI _time;
+        /*       [SerializeField]
+                 private Button _gamePauseButton;*/
         [SerializeField]
-        private Button _gamePauseButton;
+        public GameObject _gameOverPanel;
+        [SerializeField]
+        private Button _mainMenuButton;
+        
 
+        private UnityAction _timer;
+
+        public void SetCallbacks(UnityAction timer, UnityAction onGamePause, UnityAction onGoToMainMenu)
+        {
+            _timer = timer;
+            /* _gamePauseButton.onClick.AddListener(onGamePause);*/
+            _mainMenuButton.onClick.AddListener(onGoToMainMenu);
+        }
 
         protected override void InitRenderModel(IHUDModel model)
         {
-          
+            _expBar.fillAmount = 0f;
+            _lvl.text = $"Lvl. {model.Level}";
+            _time.text = string.Format("00:00");
         }
 
         protected override void UpdateRenderModel(IHUDModel model)
         {
+            int minutes = Mathf.FloorToInt(model.Time / 60f);
+            int seconds = Mathf.FloorToInt(model.Time % 60f);
+
+            _time.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            _lvl.text = $"Lvl. {model.Level}";
             
         }
 
-        public void SetCallbacks(UnityAction onGamePause)
+        private void Update()
         {
-            _gamePauseButton.onClick.AddListener(onGamePause);
-
+            _timer?.Invoke();  
         }
 
     }

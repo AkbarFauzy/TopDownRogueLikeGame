@@ -8,25 +8,18 @@ namespace Roguelike.Module.HUD
 {
     public class HUDModel : BaseModel, IHUDModel
     {
-        public float Exp {get; private set;}
         public int Level { get; private set; }
-        public int Time { get; private set; }
+        public float Time { get; private set; }
 
-
-        private void AddExp(float exp) {
-            Exp += exp;
+        public void SetLevel(int lvl)
+        {
+            Level = lvl;
             SetDataAsDirty();
         }
 
-        private void AddLevel(int lvl)
+        public void AddTime(float time)
         {
-            Level += lvl;
-            SetDataAsDirty();
-        }
-
-        private void SetTime(int time)
-        {
-            Time = time;
+            Time += time;
             SetDataAsDirty();
         }
 

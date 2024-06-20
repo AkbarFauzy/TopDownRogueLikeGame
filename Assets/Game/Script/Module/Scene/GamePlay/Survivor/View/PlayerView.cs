@@ -29,24 +29,11 @@ namespace Roguelike.Module.Player {
 
         private void OnCollisionEnter2D(Collision2D collisionInfo)
         {
-            bool isCollideWithEnemy = collisionInfo.gameObject.CompareTag("Enemy");
-            if (isCollideWithEnemy)
+            if (collisionInfo.gameObject.CompareTag("Enemy"))
             {
-                GetComponent<CircleCollider2D>().enabled = false;
                 _onCollideWithEnemy?.Invoke();
             }
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            bool isItem = other.gameObject.CompareTag("Item");
-            if (isItem)
-            {
-                _onTriggerWithItem?.Invoke(other.gameObject);
-            }
-        }
-
-
     }
 
 }

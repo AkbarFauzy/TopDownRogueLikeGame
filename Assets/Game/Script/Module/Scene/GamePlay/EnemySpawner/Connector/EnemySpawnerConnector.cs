@@ -9,6 +9,7 @@ namespace Roguelike.Module.EnemySpawner
 
         protected override void Connect()
         {
+            Subscribe<EnemyDefeatedMessage>(_enemySpawner.OnEnemyDied);
             Subscribe<GameOverMessage>(_enemySpawner.OnGameOver);
         }
 

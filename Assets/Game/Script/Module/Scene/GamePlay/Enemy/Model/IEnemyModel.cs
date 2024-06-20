@@ -9,5 +9,6 @@ namespace Roguelike.Module.Enemy
         public int Health { get; }
         public float Speed { get; }
         public int Damage { get; }
+        public Transform PlayerPosition { get; }
     }
 }

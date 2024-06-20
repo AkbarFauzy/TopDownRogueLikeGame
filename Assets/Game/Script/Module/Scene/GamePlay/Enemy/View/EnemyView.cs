@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Agate.MVC.Base;
-using Roguelike.Module.Player;
+using Roguelike.Module.Bullet;
 
 namespace Roguelike.Module.Enemy 
 {
@@ -9,18 +9,15 @@ namespace Roguelike.Module.Enemy
     {
         [SerializeField]
         public Rigidbody2D rbody;
-        private Transform playerTransform;
 
+        public UnityAction<int> OnTakeDamage;
         private UnityAction<Transform> _onMovePosition;
-        private UnityAction _onCollideWithBullet;
-        private EnemyController _controller = new EnemyController();
 
-
-        public void SetCallbacks(UnityAction<Transform> onMovePosition)
+        public void SetCallbacks(UnityAction<int> onTakeDamage, UnityAction<Transform> onMovePosition)
         {
+            OnTakeDamage = onTakeDamage;
             _onMovePosition = onMovePosition;
         }
-
 
         protected override void InitRenderModel(IEnemyModel model)
         {
@@ -34,25 +31,8 @@ namespace Roguelike.Module.Enemy
 
         private void Update()
         {
-            _onMovePosition?.Invoke(playerTransform);
+            _onMovePosition?.Invoke(_model.PlayerPosition);
         }
-
-        private void Start()
-        {
-            _controller.SetView(this);
-            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        }
-
-        private void OnCollisionEnter2D(Collision2D collisionInfo)
-        {
-            bool isCollideWithBullet = collisionInfo.gameObject.CompareTag("Bullet");
-            if (isCollideWithBullet)
-            {
-                collisionInfo.gameObject.transform.position = new Vector3(50f,50f,50f);
-                this.gameObject.transform.position = new Vector3(Random.Range(-20f, 20f), Random.Range(-20f, -20f));
-            }
-        }
-
     }
 }
 

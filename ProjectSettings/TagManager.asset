@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Bullet
   - InvisibleWall
+  - Magnet
+  - ExpOrb
   layers:
   - Default
   - TransparentFX
@@ -17,8 +19,8 @@ TagManager:
   - Player
   - Enemy
   - Bullet
-  - 
-  - 
+  - ExpOrb
+  - Magnet
   - 
   - 
   - 

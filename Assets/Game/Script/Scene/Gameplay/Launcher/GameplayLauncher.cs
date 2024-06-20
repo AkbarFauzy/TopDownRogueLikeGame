@@ -6,7 +6,11 @@ using Roguelike.Utility;
 using Roguelike.Module.Input;
 using Roguelike.Module.Player;
 using Roguelike.Module.Bullet;
+using Roguelike.Module.Exp;
 using Roguelike.Module.EnemySpawner;
+using Roguelike.Module.HUD;
+using Roguelike.Module.GameplayCamera;
+
 
 
 namespace Roguelike.Scene.Gameplay
@@ -15,8 +19,12 @@ namespace Roguelike.Scene.Gameplay
     {
 
         private PlayerController _player;
-        private BulletController _bullet;
+        private BulletPoolController _bullet;
         private EnemySpawnerController _enemySpawner;
+        private ExpOrbPoolController _expOrbPool;
+        private LevelManagerController _levelManager;
+        private HUDController _hud;
+        private CameraController _camera;
 
         public override string SceneName { get { return GameScene.GamePlay; } }
 
@@ -25,8 +33,10 @@ namespace Roguelike.Scene.Gameplay
             return new IConnector[] {
                new InputConnector(),
                new PlayerConnector(),
-               new BulletConnector(),
+               new BulletPoolConnector(),
                new EnemySpawnerConnector(),
+               new ExpOrbPoolConnector(),
+               new HUDConnector(),
             };
         }
 
@@ -35,8 +45,12 @@ namespace Roguelike.Scene.Gameplay
             return new IController[] {
                new InputController(),
                new PlayerController(),
-               new BulletController(),
+               new BulletPoolController(),
                new EnemySpawnerController(),
+               new ExpOrbPoolController(),
+               new LevelManagerController(),
+               new HUDController(),
+               new CameraController(),
             };
         }
 
@@ -44,7 +58,11 @@ namespace Roguelike.Scene.Gameplay
         {
             _player.SetView(_view.PlayerView);
             _enemySpawner.SetView(_view.EnemySpawnerView);
-            _bullet.SetView(_view.BulletView);
+            _bullet.SetView(_view.BulletPoolView);
+            _expOrbPool.SetView(_view.ExpOrbPoolView);
+            _levelManager.SetView(_view.LevelManagerView);
+            _hud.SetView(_view.HUDView);
+            _camera.SetView(_view.CameraView);
             yield return null;
         }
 

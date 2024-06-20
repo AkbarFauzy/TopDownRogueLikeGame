@@ -9,11 +9,13 @@ namespace Roguelike.Module.Player
 
         protected override void Connect()
         {
+            Subscribe<PickupExpOrbMessage>(_player.OnPickupExp);
             Subscribe<MovePlayerMessage>(_player.OnMovePlayer);
         }
 
         protected override void Disconnect()
         {
+            Unsubscribe<PickupExpOrbMessage>(_player.OnPickupExp);
             Unsubscribe<MovePlayerMessage>(_player.OnMovePlayer);
         }
     }
