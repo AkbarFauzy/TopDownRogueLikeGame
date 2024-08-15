@@ -8,24 +8,26 @@ namespace Roguelike.Module.Player
 {
     public class PlayerController : ObjectController<PlayerController, PlayerModel, IPlayerModel, PlayerView>
     {
+        private Rigidbody2D rbody;
         private LevelManagerController _levelManager;
 
         public override void SetView(PlayerView view)
         {
             base.SetView(view);
-            view.SetCallbacks(OnCollideWithEnemy, OnTriggerItem);
+            view.SetCallbacks(OnTriggerItem);
+            rbody = view.gameObject.GetComponent<Rigidbody2D>();
+            _model.SetHealth(10f);
         }
 
         public void OnMovePlayer(MovePlayerMessage message)
         {
             Vector2 direction = message.Direction;
-            _view.rbody.velocity = direction * _model.Speed;
+            rbody.velocity = direction * _model.Speed;
         }
 
         public void OnPickupExp(PickupExpOrbMessage message)
         {
             _model.AddExperience(message.Experience);
-            Debug.Log("Orb Collected Current Exp: "+_model.Experience);
             while (_model.Experience >= _levelManager.GetXPForLevel(_model.Level)) {
                 _model.SubstractExperience(_levelManager.GetXPForLevel(_model.Level));
                 _model.LevelUp();
@@ -34,9 +36,12 @@ namespace Roguelike.Module.Player
             Publish<PlayerGainingExperience>(new PlayerGainingExperience(_model.Experience, _levelManager.GetXPForLevel(_model.Level)));
         }
 
-        private void OnCollideWithEnemy() {
-            /*Publish<PlayerTakeDamageMessage>(new PlayerTakeDamageMessage());*/
-            Publish<GameOverMessage>(new GameOverMessage());
+        public void PlayerTakeDamage(PlayerTakeDamageMessage message)
+        {
+            _model.TakeDamage(message.Damage);
+            if (_model.CurrentHealth <= 0) {                                    
+                Publish<GameOverMessage>(new GameOverMessage());
+            }
         }
 
         private void OnTriggerItem(GameObject triggeredItem) {

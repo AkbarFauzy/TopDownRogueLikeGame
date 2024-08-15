@@ -12,11 +12,15 @@ namespace Roguelike.Module.Input
         protected override void Connect()
         {
             Subscribe<GameOverMessage>(_input.OnGameOver);
+            Subscribe<OnGamePauseMessage>(_input.OnGamePause);
+            Subscribe<OnGameResumeMessage>(_input.OnGameResume);
         }
 
         protected override void Disconnect()
         {
             Unsubscribe<GameOverMessage>(_input.OnGameOver);
+            Unsubscribe<OnGamePauseMessage>(_input.OnGamePause);
+            Unsubscribe<OnGameResumeMessage>(_input.OnGameResume);
         }
 
 

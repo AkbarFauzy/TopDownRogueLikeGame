@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3228d9f901449e489d08d16f4ee5292, type: 3}
+  m_Name: Lvl3_Laser
+  m_EditorClassIdentifier: 
+  Icon: {fileID: -2019370528, guid: 12f085ef03ddc424683dbd4cbb5dd803, type: 3}
+  WeaponName: 5
+  WeaponType: 0
+  WeaponDescription: The spinning laser attack becomes even more devastating as it
+    gains additional lasers and a wider coverage area. The expanded network of lasers
+    forms an intricate, almost impenetrable barrier around the player. Each laser
+    now deals even greater damage.
+  NumberOfInstance: 3
+  Damage: 3
+  Multiplier: 1
+  WeaponSize: 3

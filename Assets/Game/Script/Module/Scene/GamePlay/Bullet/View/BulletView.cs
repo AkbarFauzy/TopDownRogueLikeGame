@@ -2,33 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using Agate.MVC.Base;
 using Roguelike.Module.Enemy;
 
 namespace Roguelike.Module.Bullet 
 {
-    public class BulletView : ObjectView<IBulletModel>
+    public class BulletView : BaseView
     {
         private UnityAction _onMoveBullet;
         private UnityAction _onDespawnBullet;
         private UnityAction<EnemyView> _onEnemyHit;
+
+        private float timeSinceLastSpawn;
 
         public void SetCallbacks(UnityAction onMoveBullet , UnityAction onDespawnBullet, UnityAction<EnemyView> onEnemyHit)
         {
             _onMoveBullet = onMoveBullet;
             _onDespawnBullet = onDespawnBullet;
             _onEnemyHit = onEnemyHit;
-        }
-
-        protected override void InitRenderModel(IBulletModel model)
-        {
-          
-        }
-
-        protected override void UpdateRenderModel(IBulletModel model)
-        {
-   
         }
 
         private void OnCollisionEnter2D(Collision2D collisionInfo)
@@ -42,19 +33,23 @@ namespace Roguelike.Module.Bullet
 
         private void Start()
         {
+            timeSinceLastSpawn = 0f;
             _onMoveBullet?.Invoke();
         }
 
         private void Update()
         {
-            _onDespawnBullet?.Invoke();
+            timeSinceLastSpawn += Time.deltaTime;
+            if (timeSinceLastSpawn > 2f)
+            {
+                _onDespawnBullet?.Invoke();
+            }
         }
-
         private void OnEnable()
         {
+            timeSinceLastSpawn = 0f;
             _onMoveBullet?.Invoke();
         }
-
     }
 }
 

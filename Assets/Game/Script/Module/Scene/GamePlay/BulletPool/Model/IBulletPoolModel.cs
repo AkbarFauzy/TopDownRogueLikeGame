@@ -8,7 +8,8 @@ namespace Roguelike.Module.Bullet
 {
     public interface IBulletPoolModel : IBaseModel
     {
-/*        public Vector3 Position { get; }*/
+        public float BulletDamage { get;}
+        public int PoolSize { get; }
         public Transform SpawnPoint { get;}
         public Vector3 DespawnPosition { get; }
     }

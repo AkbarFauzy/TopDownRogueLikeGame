@@ -1,39 +1,37 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Agate.MVC.Base;
-
-
+using UnityEngine.UI;
 
 namespace Roguelike.Module.Player {
     public class PlayerView : ObjectView<IPlayerModel>
     {
-        public Rigidbody2D rbody;
-        private UnityAction _onCollideWithEnemy;
         private UnityAction<GameObject> _onTriggerWithItem;
+        [SerializeField] private Image HealthBar;
 
-        public void SetCallbacks(UnityAction onCollideWithEnemy, UnityAction<GameObject> onTriggerWithItem)
+
+        public void SetCallbacks(UnityAction<GameObject> onTriggerWithItem)
         {
-            _onCollideWithEnemy = onCollideWithEnemy;
             _onTriggerWithItem = onTriggerWithItem;
         }
 
         protected override void InitRenderModel(IPlayerModel model)
         {
-            
+            HealthBar.fillAmount = _model.CurrentHealth / _model.MaxHealth;
         }
 
         protected override void UpdateRenderModel(IPlayerModel model)
         {
-           
+            HealthBar.fillAmount = _model.CurrentHealth / _model.MaxHealth;
         }
 
-        private void OnCollisionEnter2D(Collision2D collisionInfo)
+ /*       private void OnCollisionEnter2D(Collision2D collisionInfo)
         {
             if (collisionInfo.gameObject.CompareTag("Enemy"))
             {
                 _onCollideWithEnemy?.Invoke();
             }
-        }
+        }*/
     }
 
 }

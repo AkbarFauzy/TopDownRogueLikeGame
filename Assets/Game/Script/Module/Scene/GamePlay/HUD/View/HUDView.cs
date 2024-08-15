@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Agate.MVC.Base;
+using Roguelike.Module.Weapon;
 
 namespace Roguelike.Module.HUD {
     public class HUDView : ObjectView<IHUDModel>
@@ -19,8 +22,11 @@ namespace Roguelike.Module.HUD {
         public GameObject _gameOverPanel;
         [SerializeField]
         private Button _mainMenuButton;
-        
 
+        public GameObject powerUpPanel;
+
+        public GameObject powerUpCardPrefab;
+    
         private UnityAction _timer;
 
         public void SetCallbacks(UnityAction timer, UnityAction onGamePause, UnityAction onGoToMainMenu)

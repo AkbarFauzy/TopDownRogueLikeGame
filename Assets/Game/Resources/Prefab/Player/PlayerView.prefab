@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1767258337164616356}
   - component: {fileID: 1225628662978740246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2594533258620308327}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBarUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -198,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3089329297401497565}
   - component: {fileID: 6071581397284174670}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 4830246144459956930}
   - component: {fileID: 4560356873667044643}
   - component: {fileID: 3440180377676067988}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,9 +376,10 @@ GameObject:
   - component: {fileID: 1804304289398025757}
   - component: {fileID: 5745086365487700300}
   - component: {fileID: 6000924195560479507}
-  m_Layer: 0
+  - component: {fileID: 9037210475426448026}
+  m_Layer: 6
   m_Name: PlayerView
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -467,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ce1bbe612e9a64e866cc76fd917780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rbody: {fileID: 5745086365487700300}
+  HealthBar: {fileID: 0}
 --- !u!50 &5745086365487700300
 Rigidbody2D:
   serializedVersion: 4
@@ -540,6 +541,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.69, y: 0.87}
   m_EdgeRadius: 0
+--- !u!95 &9037210475426448026
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465857282625765072}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fde12eb19c227b94f887bcd5ecf8b945, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7799735231248633607
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +573,7 @@ GameObject:
   - component: {fileID: 8691835821377356595}
   - component: {fileID: 5646282763483204153}
   - component: {fileID: 1593456617739075250}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,13 +649,13 @@ GameObject:
   - component: {fileID: 1405504946468323008}
   - component: {fileID: 2888023479091821009}
   - component: {fileID: 2270660179622282793}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7355177861031370139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -727,7 +749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8968692981873459764}
   - component: {fileID: 5235269743589014657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hand Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

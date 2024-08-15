@@ -7,20 +7,17 @@ namespace Roguelike.Module.EnemySpawner
 {
     public class EnemySpawnerModel : BaseModel, IEnemySpawnerModel
     {
-        public GameObject EnemyPrefab { get; private set; }
         public Transform Player { get; private set; }
-        public int PoolSize { get; private set; } = 20;
+        public int PoolSize { get; private set; } = 30;
         public Vector2 SpawnPoint { get; private set; } = new Vector2();
-        public float MinYSpawnPoint { get; private set; } = 10f;
-        public float MaxYSpawnPoint { get; private set; } = 20f;
-        public float MinXSpawnPoint { get; private set; } = 10f;
-        public float MaxXSpawnPoint { get; private set; } = 20f;
+        public float MinYSpawnPoint { get; private set; } = 20f;
+        public float MaxYSpawnPoint { get; private set; } = 30f;
+        public float MinXSpawnPoint { get; private set; } = 20f;
+        public float MaxXSpawnPoint { get; private set; } = 30f;
+
+        public float Timer;
 
         private List<GameObject> EnemyPool = new List<GameObject>();
-
-        public void SetEnemyPrefab(GameObject prefab) {
-            EnemyPrefab = prefab;
-        }
 
         public void AddEnemy(GameObject enemy)
         {
@@ -32,6 +29,12 @@ namespace Roguelike.Module.EnemySpawner
         {
            EnemyPool.Remove(enemy);
            SetDataAsDirty();
+        }
+
+        public void AddTime()
+        {
+            Timer += Time.deltaTime;
+            SetDataAsDirty();
         }
 
         public GameObject GetEnemyInFront()

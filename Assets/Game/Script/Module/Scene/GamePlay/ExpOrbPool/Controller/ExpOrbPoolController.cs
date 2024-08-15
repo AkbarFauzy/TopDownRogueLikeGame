@@ -32,15 +32,7 @@ namespace Roguelike.Module.Exp
         {
             base.SetView(view);
             InitPoolObject();
-           /* view.SetCallbacks(OnDespawnExpOrb, OnPickupExpOrb);*/
         }
-
-
-/*        private void OnDespawnExpOrb() {
-            GameObject expOrb = _model.GetExpOrbInFront();
-            //make a condition if exceed limit
-            DespawnExpOrb(expOrb);
-        }*/
 
         public void OnPickupExpOrb(PickupExpOrbMessage message) {
             ReturnExpOrbToPool(message.ExpOrb);
@@ -49,12 +41,24 @@ namespace Roguelike.Module.Exp
         public void SpawnExpOrb(EnemyDefeatedMessage message)
         {
             Vector2 enemyPosition = message.LastPosition;
-            GameObject expOrb = _model.GetExpOrbInFront();
 
-            expOrb.transform.position = enemyPosition;
-            expOrb.SetActive(true);
-            _model.RemoveExpOrb(expOrb);
-            _model.AddExpOrb(expOrb);
+            for (int i=0; i<message.ExpOrbCount;i++)
+            {
+                GameObject expOrb = _model.GetExpOrbInFront();
+
+                expOrb.transform.position = enemyPosition;
+                expOrb.SetActive(true);
+
+                Rigidbody2D rb = expOrb.GetComponent<Rigidbody2D>();
+                if (rb != null) {
+                    Vector2 randomDirection = Random.insideUnitCircle.normalized;
+                    rb.AddForce(randomDirection * 3f, ForceMode2D.Impulse);
+                }
+                _model.RemoveExpOrb(expOrb);
+                _model.AddExpOrb(expOrb);
+            }
+
+
         }
 
         private void ReturnExpOrbToPool(GameObject expOrb)
@@ -63,10 +67,6 @@ namespace Roguelike.Module.Exp
             _model.RemoveExpOrb(expOrb);
             _model.AddExpOrb(expOrb);
         }
-
-/*        private void DespawnExpOrb(GameObject expOrb) {
-            expOrb.SetActive(false); 
-        }*/
 
     }
 }

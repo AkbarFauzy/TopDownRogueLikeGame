@@ -10,17 +10,6 @@ namespace Roguelike.Module.Exp
     {
         public GameObject expOrbPrefab;
 
- /*       private UnityAction _onDespawnExpOrb;
-        private UnityAction<GameObject> _onPickupExpOrb;
-
-        public void SetCallbacks(UnityAction onDespawnExpOrb, UnityAction<GameObject> onPickupExpOrb)
-        {
-            _onDespawnExpOrb = onDespawnExpOrb;
-            _onPickupExpOrb = onPickupExpOrb;
-        }*/
-
-
-
         protected override void InitRenderModel(IExpOrbPoolModel model)
         {
             
@@ -30,9 +19,6 @@ namespace Roguelike.Module.Exp
         {
        
         }
-
-
-
     }
 }
 

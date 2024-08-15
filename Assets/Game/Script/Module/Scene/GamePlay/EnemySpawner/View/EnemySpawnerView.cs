@@ -9,7 +9,21 @@ namespace Roguelike.Module.EnemySpawner
     public class EnemySpawnerView : ObjectView<IEnemySpawnerModel>
     {
         [SerializeField]
-        public GameObject EnemyPrefab;
+        public List<EnemySpawnerScriptableObject> Enemy;
+
+        private UnityAction _onTimer;
+
+        public void SetCallbacks(UnityAction onTimer)
+        {
+            _onTimer = onTimer;
+        }
+
+        private void Update()
+        {
+            _onTimer?.Invoke();
+        }
+
+
         protected override void InitRenderModel(IEnemySpawnerModel model)
         {
         

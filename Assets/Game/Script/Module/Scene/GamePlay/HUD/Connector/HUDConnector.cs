@@ -10,6 +10,8 @@ namespace Roguelike.Module.HUD
         {
             Subscribe<PlayerGainingExperience>(_hud.OnPlayerGainingExp);
             Subscribe<PlayerLevelUpMessage>(_hud.OnPlayerLevelUp);
+            Subscribe<ShowPowerUpOptionsMessage>(_hud.OnShowPowerUpOptions);
+            Subscribe<PowerUpSelectionMessage>(_hud.OnPowerUpSelection);
             Subscribe<GameOverMessage>(_hud.OnGameOver);
         }
 
@@ -17,6 +19,8 @@ namespace Roguelike.Module.HUD
         {
             Unsubscribe<PlayerGainingExperience>(_hud.OnPlayerGainingExp);
             Unsubscribe<PlayerLevelUpMessage>(_hud.OnPlayerLevelUp);
+            Unsubscribe<ShowPowerUpOptionsMessage>(_hud.OnShowPowerUpOptions);
+            Subscribe<PowerUpSelectionMessage>(_hud.OnPowerUpSelection);
             Unsubscribe<GameOverMessage>(_hud.OnGameOver);
         }
     }

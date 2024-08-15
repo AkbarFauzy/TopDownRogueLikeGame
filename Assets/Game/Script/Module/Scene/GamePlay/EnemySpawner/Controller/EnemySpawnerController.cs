@@ -16,24 +16,38 @@ namespace Roguelike.Module.EnemySpawner {
         public override void SetView(EnemySpawnerView view)
         {
             base.SetView(view);
+            _view.SetCallbacks(OnTimer);
             InitPoolObject();
         }
 
         private void InitPoolObject()
         {
-            _model.SetEnemyPrefab(_view.EnemyPrefab);
-            for (int i = 0; i < _model.PoolSize; i++)
-            {
-                GameObject enemyPrefab = _model.EnemyPrefab;
-                EnemyModel enemyModel = new EnemyModel();
-                GameObject enemy = Object.Instantiate(enemyPrefab, _view.transform);
-                EnemyView enemyView = enemy.GetComponent<EnemyView>();
-                EnemyController enemyController = new EnemyController();
-                InjectDependencies(enemyController);
-                enemyController.Init(enemyModel, enemyView);
-                SpawnEnemy(enemy);
+            foreach (var _enemy in _view.Enemy) {
+                List<GameObject> EnemyInWaiting = new List<GameObject>();
+                for (int i = 0; i < _enemy.PoolSize; i++)
+                {
+                    GameObject enemyPrefab = _enemy.EnemyPrefab;
+                    EnemyModel enemyModel = new EnemyModel();
+                    GameObject enemy = Object.Instantiate(enemyPrefab, _view.transform);
+                    EnemyView enemyView = enemy.GetComponent<EnemyView>();
+                    EnemyController enemyController = new EnemyController();
+                    InjectDependencies(enemyController);
+                    enemyModel.Init(_enemy);
+                    enemyController.Init(enemyModel, enemyView, this);
+                    EnemyInWaiting.Add(enemy);
+                    enemy.SetActive(false);
+                }
+                _view.StartCoroutine(WaitToSpawnEnemy(EnemyInWaiting, _enemy.SpawnAt));
             }
         }
+        private IEnumerator WaitToSpawnEnemy(List<GameObject> enemies, float timeToWait) {
+            yield return new WaitForSeconds(timeToWait);
+            foreach (var enemy in enemies) {
+                SpawnEnemy(enemy);
+            }
+            yield break;
+        }
+
         Vector2 GenerateRandomSpawnPosition()
         {
             float randomX = Random.Range(0, 2) == 0
@@ -47,7 +61,6 @@ namespace Roguelike.Module.EnemySpawner {
             return new Vector2(randomX, randomY);
         }
 
-
         private void SpawnEnemy(GameObject enemy)
         {
             Vector2 spawnPosition = GenerateRandomSpawnPosition();
@@ -60,13 +73,21 @@ namespace Roguelike.Module.EnemySpawner {
             GameObject enemy = message.Enemy;
             _model.RemoveEnemy(enemy);
             enemy.SetActive(false);
-            SpawnEnemy(enemy);
+            if (message.IsRespawn)
+            {
+                SpawnEnemy(enemy);
+            }
+        }
+
+        public void OnTimer() {
+            _model.AddTime();
         }
 
         public void OnGameOver(GameOverMessage message)
         {
 
         }
+
 
     }
 }

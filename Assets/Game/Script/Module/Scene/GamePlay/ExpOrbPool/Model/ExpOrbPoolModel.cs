@@ -8,7 +8,7 @@ namespace Roguelike.Module.Exp
     public class ExpOrbPoolModel : BaseModel, IExpOrbPoolModel
     {
         public GameObject ExpOrbPrefab { get; private set; }
-        public int PoolSize { get; private set; } = 100;
+        public int PoolSize { get; private set; } = 300;
 
         private List<GameObject> ExpOrbPool = new List<GameObject>();
 

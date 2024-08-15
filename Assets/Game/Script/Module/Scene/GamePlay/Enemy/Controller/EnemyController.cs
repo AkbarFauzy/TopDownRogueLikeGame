@@ -8,12 +8,14 @@ using Roguelike.Module.EnemySpawner;
 namespace Roguelike.Module.Enemy {
     public class EnemyController : ObjectController<EnemyController, EnemyModel, IEnemyModel, EnemyView>
     {
-        private EnemySpawnerController _enemySpawner;
-        public void Init(EnemyModel model, EnemyView view)
+        private Animator _anim;
+
+        public void Init(EnemyModel model, EnemyView view, EnemySpawnerController enemySpawner)
         {
             _model = model;
             SetView(view);
             _model.ResetHealth();
+            _anim = _view.gameObject.GetComponent<Animator>();
         }
 
         public override IEnumerator Finalize()
@@ -24,18 +26,19 @@ namespace Roguelike.Module.Enemy {
         public override void SetView(EnemyView view)
         {
             base.SetView(view);
-            view.SetCallbacks(OnCollideWithBullet, OnMoveEnemy);
+            view.SetCallbacks(OnTakeDamage, OnMove, OnDamagingPlayer);
         }
 
-        private void OnMoveEnemy(Transform playerPosition)
+        private void OnMove(Transform playerPosition)
         {
             Vector3 pos = Vector3.MoveTowards(_view.transform.position, playerPosition.position, _model.Speed * Time.deltaTime);
             _view.rbody.MovePosition(pos);
         }
 
-        private void OnCollideWithBullet(int bulletDamage) 
+        private void OnTakeDamage(float damage) 
         {
-            _model.TakeDamage(bulletDamage);
+            _model.TakeDamage(damage);
+            _anim.SetTrigger("Hit");
             if (_model.Health <= 0)
             {
                 OnEnemyDied(_view.gameObject);
@@ -43,14 +46,12 @@ namespace Roguelike.Module.Enemy {
             }
         }
 
-        private void OnEnemyDied(GameObject enemy) {
-            Publish<EnemyDefeatedMessage>(new EnemyDefeatedMessage(enemy));
+        private void OnDamagingPlayer() {
+            Publish<PlayerTakeDamageMessage>(new PlayerTakeDamageMessage(_model.Damage));
         }
 
-
-        public void OnGameOver(GameOverMessage message)
-        {
-
+        private void OnEnemyDied(GameObject enemy) {
+            Publish<EnemyDefeatedMessage>(new EnemyDefeatedMessage(enemy, _model.Exp, _model.IsRespawn));
         }
     }
 }

@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Agate.MVC.Base;
-using Roguelike.Message;
-using Roguelike.Module.Enemy;
+using Roguelike.Module.Weapon;
 
 namespace Roguelike.Module.Bullet 
 {
     public class BulletPoolController : ObjectController<BulletPoolController, BulletPoolModel, IBulletPoolModel, BulletPoolView>
     {
-        public override IEnumerator Finalize()
+        private WeaponController _weaponController;
+
+        public void Init(BulletPoolModel model, BulletPoolView view, WeaponController weaponController)
         {
-            yield return base.Finalize();
+            _model = model;
+            _weaponController = weaponController;
+            _model.SetBulletDamage(_weaponController.Model.CurrentStat.Damage); 
+            SetView(view);
         }
 
         public override void SetView(BulletPoolView view)
         {
             base.SetView(view);
             InitPoolBullet();
+            _view.SetCallbacks(OnSpawnBullet);
         }
 
         public void InitPoolBullet()
@@ -27,30 +31,48 @@ namespace Roguelike.Module.Bullet
             for (int i = 0; i < _model.PoolSize; i++)
             {
                 GameObject bulletPrefab = _model.BulletPrefab;
-                BulletModel bulletModel = new BulletModel();
-          
                 GameObject bullet = Object.Instantiate(bulletPrefab, _view.transform);
                 BulletView bulletView = bullet.GetComponent<BulletView>();
                 BulletController bulletController = new BulletController();
                 InjectDependencies(bulletController);
-                bulletController.Init(bulletModel, bulletView);
-                SpawnBullet(bullet);
-            }  
+                bulletController.Init(bulletView, this);
+                DespawnBullet(bullet);
+            }
         }
 
-        public void SpawnBullet(GameObject bullet) {
+        private void OnSpawnBullet()
+        {
+            switch (_weaponController.Model.WeaponLevel) {
+                case 2:
+                    _view.StartCoroutine(ConsecutiveShoot(3));
+                    break;
+                case 3:
+                    _view.StartCoroutine(ConsecutiveShoot(5));
+                    break;
+                default:
+                    SpawnBullet();
+                    break;
+            }
+        }
+
+        private IEnumerator ConsecutiveShoot(int bulletPerShoot) {
+            for (int i = 0; i < bulletPerShoot; i++)
+            {
+                SpawnBullet();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        private void SpawnBullet() {
+            GameObject bullet = _model.DequeueBullet();
             bullet.transform.localPosition = _model.SpawnPoint.position;
             bullet.SetActive(true);
-            _model.EnqueueBullet(bullet);
-/*            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3 direction = mousePosition - _view.transform.position;
-            direction.z = 0f; */
         }
 
-
-        public void OnGameOver(GameOverMessage message) { 
-        
-        
+        public void DespawnBullet(GameObject bullet)
+        { 
+            bullet.SetActive(false);
+            _model.EnqueueBullet(bullet);
         }
 
     }

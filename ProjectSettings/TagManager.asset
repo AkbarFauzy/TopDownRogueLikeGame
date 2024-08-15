@@ -9,6 +9,8 @@ TagManager:
   - InvisibleWall
   - Magnet
   - ExpOrb
+  - Trigger
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Bullet
   - ExpOrb
   - Magnet
-  - 
-  - 
+  - Trigger
+  - Obstacle
   - 
   - 
   - 

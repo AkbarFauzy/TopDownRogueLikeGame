@@ -13,6 +13,8 @@ namespace Roguelike.Module.Input
         private InputActionManager _inputActionsManager = new InputActionManager();
         private Vector2 _currentDirection;
 
+        private bool isPaused;
+
         public override IEnumerator Initialize()
         {
             yield return base.Initialize();
@@ -25,6 +27,8 @@ namespace Roguelike.Module.Input
 
         private void OnMove(InputAction.CallbackContext context)
         {
+            if (isPaused) return;
+
             Vector2 direction = context.ReadValue<Vector2>();
             Publish<MovePlayerMessage>(new MovePlayerMessage(direction));
         }
@@ -33,6 +37,16 @@ namespace Roguelike.Module.Input
         {
             _currentDirection = Vector2.zero;
             Publish<MovePlayerMessage>(new MovePlayerMessage(_currentDirection));
+        }
+
+        public void OnGamePause(OnGamePauseMessage message)
+        {
+            isPaused = true;
+        }
+
+        public void OnGameResume(OnGameResumeMessage message)
+        {
+            isPaused = false;
         }
 
         public void OnGameOver(GameOverMessage message)
