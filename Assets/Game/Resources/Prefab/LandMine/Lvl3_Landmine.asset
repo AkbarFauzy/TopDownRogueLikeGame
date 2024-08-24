@@ -15,6 +15,6 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 36c1115c3c28d6b47a03591e2d34d4a6, type: 3}
   WeaponDescription: 
   NumberOfInstance: 3
-  Damage: 3
+  Damage: 8
   Multiplier: 1
   WeaponSize: 1

@@ -22,6 +22,7 @@ namespace Roguelike.Module.Weapon {
 
         private void Update()
         {
+            Debug.Log(_model.ObjectOnFieldCount);
             if (_model.ObjectOnFieldCount >= numberOfObjectOnField)
                 return;
 

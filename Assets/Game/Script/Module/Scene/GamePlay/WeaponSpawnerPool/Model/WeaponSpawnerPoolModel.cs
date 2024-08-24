@@ -50,8 +50,6 @@ namespace Roguelike.Module.Weapon {
         {
             return ObjectPool.Count;
         }
-
-
     }
 }
 

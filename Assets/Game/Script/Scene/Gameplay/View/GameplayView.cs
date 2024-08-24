@@ -7,6 +7,7 @@ using Roguelike.Module.HUD;
 using Roguelike.Module.ObstacleSpawner;
 using Roguelike.Module.EnemySpawner;
 using Roguelike.Module.GameplayCamera;
+using Roguelike.Module.GameplayAudio;
 using Roguelike.Module.Weapon;
 
 namespace Roguelike.Scene.Gameplay {
@@ -16,6 +17,8 @@ namespace Roguelike.Scene.Gameplay {
         public HUDView HUDView;
         [SerializeField]
         public CameraView CameraView;
+        [SerializeField]
+        public GameplayAudioView AudioView;
         [SerializeField]
         public PlayerView PlayerView;
         [SerializeField]

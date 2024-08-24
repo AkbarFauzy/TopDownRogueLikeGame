@@ -24,16 +24,6 @@ namespace Roguelike.Module.HUD
             Time += time;
             SetDataAsDirty();
         }
-
-        public void UpdatePowerUpCard(WeaponController[] model) {
-            
-            for (int i = 0; i < 3; i++)
-            {
-                PowerUpCards[i].UpdateCard(model[i]);
-            }
-            SetDataAsDirty();
-        }
-
     }
 
 }

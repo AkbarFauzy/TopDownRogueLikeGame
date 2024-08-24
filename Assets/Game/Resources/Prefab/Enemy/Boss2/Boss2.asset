@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589101e3ca405cb48863e10eacf21873, type: 3}
+  m_Name: Boss2
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 3054578400057537667, guid: 06c3a87746d245f40b97ee9ddea212b7, type: 3}
+  Damage: 7
+  Exp: 150
+  Health: 300
+  PoolSize: 1
+  SpawnAt: 300
+  IsRespawn: 0

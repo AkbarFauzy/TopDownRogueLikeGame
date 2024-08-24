@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Bullet_Lvl2
   m_EditorClassIdentifier: 
   Icon: {fileID: -762074860, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
-  WeaponName: 0
-  WeaponType: 1
-  WeaponDescription: 
+  WeaponDescription: Increase fire rate For the Main Weapon.
   NumberOfInstance: 9
   Damage: 3
   Multiplier: 1

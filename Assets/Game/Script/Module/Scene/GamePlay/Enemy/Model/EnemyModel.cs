@@ -12,7 +12,7 @@ namespace Roguelike.Module.Enemy
         public float BaseHealth { get; private set; }
         public float Health { get; private set; }
         public int Exp { get; private set; }
-        public float Speed { get; private set; } = 4f;
+        public float Speed { get; private set; } = 3f;
         public float Damage  { get; private set; }
         public bool IsRespawn { get; private set; }
         public Transform PlayerPosition { get; private set; } = GameObject.FindGameObjectWithTag("Player").transform;

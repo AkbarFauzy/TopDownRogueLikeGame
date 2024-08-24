@@ -31,7 +31,7 @@ namespace Roguelike.Module.Enemy {
 
         private void OnMove(Transform playerPosition)
         {
-            Vector3 pos = Vector3.MoveTowards(_view.transform.position, playerPosition.position, _model.Speed * Time.deltaTime);
+            Vector3 pos = Vector3.MoveTowards(_view.transform.position, playerPosition.position, _model.Speed * Time.fixedDeltaTime);
             _view.rbody.MovePosition(pos);
         }
 

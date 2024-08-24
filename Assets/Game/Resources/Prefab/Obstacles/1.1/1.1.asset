@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 1.1
   m_EditorClassIdentifier: 
   ObstaclePrefab: {fileID: 5969339840195005147, guid: 06d0c90fb75ae5340952c88a72efc94b, type: 3}
-  DesignatedTime: 10
+  DesignatedTime: 60
   isSpawnAtPlayer: 1

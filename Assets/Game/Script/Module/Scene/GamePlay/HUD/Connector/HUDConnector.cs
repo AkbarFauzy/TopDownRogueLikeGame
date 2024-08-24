@@ -20,7 +20,7 @@ namespace Roguelike.Module.HUD
             Unsubscribe<PlayerGainingExperience>(_hud.OnPlayerGainingExp);
             Unsubscribe<PlayerLevelUpMessage>(_hud.OnPlayerLevelUp);
             Unsubscribe<ShowPowerUpOptionsMessage>(_hud.OnShowPowerUpOptions);
-            Subscribe<PowerUpSelectionMessage>(_hud.OnPowerUpSelection);
+            Unsubscribe<PowerUpSelectionMessage>(_hud.OnPowerUpSelection);
             Unsubscribe<GameOverMessage>(_hud.OnGameOver);
         }
     }

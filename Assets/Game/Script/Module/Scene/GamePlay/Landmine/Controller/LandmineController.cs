@@ -30,9 +30,8 @@ namespace Roguelike.Module.Weapon {
 
         private void OnEnemyHit(EnemyView enemy)
         {
+            _anim.SetTrigger("Trigger");
             enemy.OnTakeDamage?.Invoke(_objectPool.Model.ObjectDamage);
-            Debug.Log(_objectPool.Model.ObjectDamage);
-            OnDespawnLandmine();
         }
     }
 

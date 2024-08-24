@@ -8,7 +8,6 @@ namespace Roguelike.Module.Weapon {
     public class WeaponSpawnerPoolController : ObjectController<WeaponSpawnerPoolController, WeaponSpawnerPoolModel, IWeaponSpawnerPoolModel, WeaponSpawnerPoolView>
     {
         private WeaponController _weaponController;
-
         public void Init(WeaponSpawnerPoolModel model, WeaponSpawnerPoolView view, WeaponController weaponController)
         {
             _model = model;
@@ -16,6 +15,7 @@ namespace Roguelike.Module.Weapon {
             _model.SetObjectDamage(_weaponController.Model.CurrentStat.Damage);
             _model.SetPoolSize(_weaponController.Model.CurrentStat.NumberOfInstance);
             _model.SetObjectOnFieldCount(_weaponController.Model.CurrentStat.NumberOfInstance);
+            Debug.Log("Number of Object :"+_weaponController.Model.CurrentStat.NumberOfInstance);
             SetView(view);
         }
 
@@ -45,7 +45,7 @@ namespace Roguelike.Module.Weapon {
                         break;
                 }
 
-                DespawnObject(objectInstance);
+                objectInstance.SetActive(false);
             }
         }
 
@@ -53,20 +53,11 @@ namespace Roguelike.Module.Weapon {
         {
             SpawnObject();
         }
-/*
-        private IEnumerator ConsecutiveShoot(int bulletPerShoot)
-        {
-            for (int i = 0; i < bulletPerShoot; i++)
-            {
-                SpawnBullet();
-                yield return new WaitForSeconds(0.2f);
-            }
-        }
-*/
+
         private void SpawnObject()
         {
             GameObject bullet = _model.DequeueBullet();
-            bullet.transform.localPosition = _model.SpawnPoint.position;
+            bullet.transform.position = _model.SpawnPoint.position;
             bullet.SetActive(true);
         }
 
@@ -75,8 +66,6 @@ namespace Roguelike.Module.Weapon {
             bullet.SetActive(false);
             _model.EnqueueBullet(bullet);
         }
-
-
     }
 }
 

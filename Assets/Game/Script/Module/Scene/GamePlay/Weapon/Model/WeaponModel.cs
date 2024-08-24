@@ -54,7 +54,6 @@ namespace Roguelike.Module.Weapon
 
         public void LevelUpWeapon(){
             WeaponLevel += 1;
-            Debug.Log("Weapon Level up to " + WeaponLevel);
             InitStats();
             SetDataAsDirty();
         }

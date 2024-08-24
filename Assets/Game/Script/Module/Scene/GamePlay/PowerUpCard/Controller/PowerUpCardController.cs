@@ -9,27 +9,31 @@ namespace Roguelike.Module.HUD
 {
     public class PowerUpCardController : ObjectController<PowerUpCardController, PowerUpCardModel, IPowerUpCardModel,PowerUpCardView>
     {
-        public void Init(PowerUpCardModel model, PowerUpCardView view) {
+        HUDController _hud;
+
+        public void Init(PowerUpCardModel model, PowerUpCardView view, HUDController hud) {
             _model = model;
+            _hud = hud;
             SetView(view);
+            Debug.Log(_view == null);
         }
 
         public override void SetView(PowerUpCardView view)
         {
             base.SetView(view);
+            _view = view;
             view.SetCallbacks(OnClickCard);
+            Debug.Log("this", view);
+            Debug.Log(_view == null);
         }
 
         public void UpdateCard(WeaponController weapon) {
             var model = weapon.Model;
             _model.SetWeapon(weapon);
-            _model.SetIcon(model.Icon);
             _model.SetName(model.WeaponName);
             _model.SetDescription(model.NextLevelDescription);
+            _model.SetIcon(model.Icon);
             _view.gameObject.SetActive(true);
-            _view.Icon.sprite = _model.Icon;
-            _view.NameText.text = _model.Name.ToString();
-            _view.DescriptionText.text = _model.Description;
         }
 
         public void OnClickCard()

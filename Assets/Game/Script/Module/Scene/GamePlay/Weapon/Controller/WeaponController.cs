@@ -34,6 +34,7 @@ namespace Roguelike.Module.Weapon
                     WeaponSpawnerPoolController poolController = new WeaponSpawnerPoolController();
                     InjectDependencies(poolController);
                     poolController.Init(poolModel, pool, this);
+                    _view.transform.position = new Vector3(0, 0, 0);
                     _view.gameObject.SetActive(false);
                     break;
                 default:

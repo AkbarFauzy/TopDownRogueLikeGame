@@ -16,6 +16,7 @@ namespace Roguelike.Module.HUD
         {
             base.SetView(view);
             view.SetCallbacks(PlayTimer, OnGamePause, OnGoToMainMenu);
+            Time.timeScale = 1;
             SetPowerUpCard();
         }
 
@@ -23,19 +24,17 @@ namespace Roguelike.Module.HUD
         {
             for (int i = 0; i < 3; i++)
             {
-                GameObject card = Object.Instantiate(_view.powerUpCardPrefab, _view.powerUpPanel.transform);
+                Debug.Log("PowerUpCard Init");
+                GameObject card = GameObject.Instantiate(_view.powerUpCardPrefab, _view.powerUpPanel.transform);
+                PowerUpCardView cardView = card.GetComponent<PowerUpCardView>();
                 PowerUpCardModel cardModel = new PowerUpCardModel();
                 PowerUpCardController cardController = new PowerUpCardController();
-                PowerUpCardView cardView = card.GetComponent<PowerUpCardView>();
 
                 InjectDependencies(cardController);
 
-                cardController.Init(cardModel, cardView);
+                cardController.Init(cardModel, cardView, this);
                 _model.PowerUpCards.Add(cardController);
-
-                card.SetActive(false);
             }
-
         }
 
         public void OnPlayerLevelUp(PlayerLevelUpMessage message) {
@@ -55,7 +54,15 @@ namespace Roguelike.Module.HUD
         }
 
         public void OnPowerUpSelection(PowerUpSelectionMessage message) {
-            _model.UpdatePowerUpCard(message.PowerUpSelection);
+            UpdatePowerUpCard(message.PowerUpSelection);
+        }
+
+        private void UpdatePowerUpCard(WeaponController[] model)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                _model.PowerUpCards[i].UpdateCard(model[i]);
+            }
         }
 
         public void OnPlayerGainingExp(PlayerGainingExperience message) {

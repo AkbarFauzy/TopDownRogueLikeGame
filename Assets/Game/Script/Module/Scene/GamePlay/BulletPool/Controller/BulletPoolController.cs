@@ -65,8 +65,11 @@ namespace Roguelike.Module.Bullet
 
         private void SpawnBullet() {
             GameObject bullet = _model.DequeueBullet();
-            bullet.transform.localPosition = _model.SpawnPoint.position;
-            bullet.SetActive(true);
+            if (bullet != null)
+            {
+                bullet.transform.localPosition = _model.SpawnPoint.position;
+                bullet.SetActive(true);
+            }
         }
 
         public void DespawnBullet(GameObject bullet)

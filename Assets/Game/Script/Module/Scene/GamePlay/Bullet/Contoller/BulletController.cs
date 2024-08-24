@@ -38,7 +38,6 @@ namespace Roguelike.Module.Bullet
         private void OnEnemyHit(EnemyView enemy)
         {
             enemy.OnTakeDamage?.Invoke(_bulletPool.Model.BulletDamage);
-            Debug.Log(_bulletPool.Model.BulletDamage);
             OnDespawnBullet();
         }
 

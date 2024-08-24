@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589101e3ca405cb48863e10eacf21873, type: 3}
+  m_Name: Enemy3
+  m_EditorClassIdentifier: 
+  EnemyPrefab: {fileID: 6419352723003637567, guid: a5b6072bf75dba845a4449f2de939dfd, type: 3}
+  Damage: 2
+  Exp: 3
+  Health: 10
+  PoolSize: 20
+  SpawnAt: 60
+  IsRespawn: 1

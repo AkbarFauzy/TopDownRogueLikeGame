@@ -17,7 +17,7 @@ namespace Roguelike.Module.Weapon {
         public void InitAvailableWeapon()
         {
             foreach (var _weapon in _view.WeaponsPrefabs) {
-                GameObject weapon = Object.Instantiate(_weapon);
+                GameObject weapon = Object.Instantiate(_weapon, _view.transform);
                 WeaponView weaponView = weapon.GetComponent<WeaponView>();
                 WeaponModel weaponModel = new WeaponModel();
                 WeaponController weaponController = new WeaponController();
@@ -57,7 +57,6 @@ namespace Roguelike.Module.Weapon {
 
         public void UpdateWeapons(PowerUpSelectedMessage message) {
             var weaponName = message.PowerUp.Model.WeaponName;
-            Debug.Log(weaponName.ToString());
             if (_model.ActiveWeapons.ContainsKey(weaponName))
             {
                 var weapon = _model.ActiveWeapons[weaponName];

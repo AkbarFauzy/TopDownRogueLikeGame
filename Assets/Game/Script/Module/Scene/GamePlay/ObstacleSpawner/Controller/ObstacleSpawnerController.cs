@@ -10,7 +10,7 @@ namespace Roguelike.Module.ObstacleSpawner {
         private void Init() { 
             foreach(var obstacle in _view.Obstacles)
             {
-                GameObject obstacleObject = Object.Instantiate(obstacle.ObstaclePrefab, _view.gameObject.transform.position, Quaternion.identity);
+                GameObject obstacleObject = Object.Instantiate(obstacle.ObstaclePrefab, _view.transform);
                 ObstacleView obstacleView = obstacleObject.GetComponent<ObstacleView>();
                 ObstacleController obstacleController = new ObstacleController();
                 ObstacleModel obstacleModel = new ObstacleModel();

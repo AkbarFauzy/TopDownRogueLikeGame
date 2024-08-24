@@ -10,9 +10,9 @@ namespace Roguelike.Module.HUD
 {
     public class PowerUpCardView : ObjectView<IPowerUpCardModel>
     {
-        public Image Icon;
-        public TextMeshProUGUI NameText;
-        public TextMeshProUGUI DescriptionText;
+        [SerializeField] private Image Icon;
+        [SerializeField] private TextMeshProUGUI NameText;
+        [SerializeField] private TextMeshProUGUI DescriptionText;
 
         [SerializeField]
         private Button _button;

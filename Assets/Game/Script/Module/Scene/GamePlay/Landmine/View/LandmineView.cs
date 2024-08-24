@@ -28,17 +28,32 @@ namespace Roguelike.Module.Weapon {
             }
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            bool isCollideWithEnemy = collision.gameObject.CompareTag("Enemy");
+            if (isCollideWithEnemy)
+            {
+                _onEnemyHit?.Invoke(collision.gameObject.GetComponent<EnemyView>());
+            }
+        }
+
         private void Update()
         {
             timeSinceLastSpawn += Time.deltaTime;
             if (timeSinceLastSpawn > 10f)
             {
+                timeSinceLastSpawn = 0f;
                 _onDespawnLandmine?.Invoke();
             }
         }
         private void OnEnable()
         {
             timeSinceLastSpawn = 0f;
+        }
+
+        private void OnDisable()
+        {
+            _onDespawnLandmine?.Invoke();
         }
 
     }

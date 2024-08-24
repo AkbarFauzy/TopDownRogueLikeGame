@@ -9,7 +9,6 @@ namespace Roguelike.Module.Player {
         private UnityAction<GameObject> _onTriggerWithItem;
         [SerializeField] private Image HealthBar;
 
-
         public void SetCallbacks(UnityAction<GameObject> onTriggerWithItem)
         {
             _onTriggerWithItem = onTriggerWithItem;
@@ -25,13 +24,6 @@ namespace Roguelike.Module.Player {
             HealthBar.fillAmount = _model.CurrentHealth / _model.MaxHealth;
         }
 
- /*       private void OnCollisionEnter2D(Collision2D collisionInfo)
-        {
-            if (collisionInfo.gameObject.CompareTag("Enemy"))
-            {
-                _onCollideWithEnemy?.Invoke();
-            }
-        }*/
     }
 
 }
